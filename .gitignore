@@ -1,0 +1,4 @@
+# Eclipse project files ignore
+.project
+.buildpath
+.settings/*
