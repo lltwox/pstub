@@ -1,6 +1,6 @@
 <?php
 /**
- * Basic testcase for tests,  using PSTub lib
+ * Basic testcase for tests, using PSTub lib
  *
  * @author lex
  *
@@ -26,6 +26,11 @@ class PStub_TestCase extends PHPUnit_Framework_TestCase {
      * places, where it is not possible to do with usual dependency injecton
      * methods.
      *
+     * Note: After using this method it is necessary to explicitly revert the
+     * injections, by calling either PStub::revertAll() (called automatically
+     * after testcase is finished, unless overriden) or by calling revert()
+     * method on the injector object.
+     *
      * @return PStub_Injector_Stub
      */
     public static function inject() {
@@ -33,7 +38,18 @@ class PStub_TestCase extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Suppress method of the class.
+     * Suppress method of the class. After suppressing method's code won't
+     * execute, when invoked.
+     *
+     * Note: If suppressing constructor in class, all classes extending it, that
+     * are going to be used later in code should be pre-loaded into userspace
+     * (in other words included), otherwise a fatal error will occur (this
+     * limitation exists due to current implementation of runkit).
+     *
+     * Note: After using this method it is necessary to explicitly revert the
+     * suppressions, by calling either PStub::revertAll() (called automatically
+     * after testcase is finished, unless overriden) or by calling revert()
+     * method on the suppressor object.
      *
      * @return PStub_Suppressor_Entity
      */
@@ -42,7 +58,12 @@ class PStub_TestCase extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Replace real implementation with the stub
+     * Replace method od function implementation with stubbed one.
+     *
+     * Note: After using this method it is necessary to explicitly revert the
+     * suppressions, by calling either PStub::revertAll() (called automatically
+     * after testcase is finished, unless overriden) or by calling revert()
+     * method on the suppressor object.
      *
      * @return PStub_Stubber_Entity
      */

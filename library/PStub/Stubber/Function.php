@@ -26,7 +26,6 @@ class PStub_Stubber_Function extends PStub_Stubber {
     protected function stub($code) {
         $function = $this->getReflectionFunctionObject();
         $function->setBody($code);
-        $this->cleanContainer();
     }
 
     /**
@@ -36,6 +35,7 @@ class PStub_Stubber_Function extends PStub_Stubber {
     protected function revertStubs() {
         $function = $this->getReflectionFunctionObject();
         $function->revertBody();
+        $this->cleanContainer();
     }
 
     /**
